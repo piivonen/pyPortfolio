@@ -30,6 +30,10 @@ class TransactionDB():
     def _printfetchall(self):
         for row in self.cursor.fetchall():
             print row
+
+    def _groupsymbols(self, symbol, activity=1):
+        self.cursor.execute("""SELECT symbol, sum(shares), sum(shares * price) as cost
+from transactions where symbol = ? and activity = ?""", (symbol, activity))
         
 if __name__ == '__main__':
     import random
