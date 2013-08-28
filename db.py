@@ -8,6 +8,9 @@ class TransactionDB():
         sqlite3.register_converter('decimal', Decimal)
         self.conn = sqlite3.connect(fname, detect_types=sqlite3.PARSE_DECLTYPES) # Can be put into memory and pickled
         self.cursor = self.conn.cursor()
+
+    def execute(self, sql):
+        return self.cursor.execute(sql)
         
     def createtable(self, tblname, fields):
         '''Create a table, fields is a dictionary with column names as keys

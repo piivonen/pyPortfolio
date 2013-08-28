@@ -23,28 +23,26 @@ class Transaction():
         if type(activity) is not int:
             raise TypeError, 'Activity must be an integer.'
         self.activity = activity
-        self.description = Transaction.txntype[activity]
+        self.description = Transaction.txntype[activity].upper()
         if type(datestamp) in [unicode, str]:
             self.datestamp = util.parsedate(date)
         elif datestamp is None:
             self.datestamp = datetime.now()
         elif type(datestamp) is datetime:
-            self.datestamp = datestamp
-            
+            self.datestamp = datestamp            
         if not netamt:
             self.netamt = shares * price + fees
         else:
             self.netamt = netamt
-
+            
+    def __repr__(self):
+        s = (str(self.datestamp)[:10] + ': ' + self.description + ' ' + str(self.shares) +
+             ' ' + self.symbol + ' @ ' + str(self.pricepershare))
+        return s
+             
     def sqlify(self):
         return [None, self.symbol, self.shares, self.activity, self.pricepershare,
                 self.netamt, self.fees, self.datestamp]
-
-
-            
-    
-    
-    
     
 fields=OrderedDict([
     ('txnid','integer primary key'),
