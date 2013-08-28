@@ -1,4 +1,4 @@
-from transaction import *
+from transaction import Transaction
 import csv
 import os
 from decimal import Decimal
@@ -27,11 +27,16 @@ def import_qt(csvfile):
             else:
                 activity = 99
             # Converts (x.xx) to -x.xx 
-            fees = Decimal(util.convert_pformat(row['Comm'])) + Decimal(util.convert_pformat(row['SEC fees']))
+            fees = (Decimal(util.convert_pformat(row['Comm'])) +
+            Decimal(util.convert_pformat(row['SEC fees'])))
             transactions.append(Transaction(None, symbol, qty, activity, price,
-                                            netamt, date))
+                                            netamt, fees, date))
         return transactions
 
+if __name__ == '__main__':
+    txn = import_qt('margin.csv')
+    print(txn[0])
+    
         
     
 
