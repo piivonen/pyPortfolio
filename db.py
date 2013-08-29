@@ -11,7 +11,7 @@ class TransactionDB():
         self.conn = sqlite3.connect(fname, detect_types=sqlite3.PARSE_DECLTYPES) # Can be put into memory and pickled
         self.cursor = self.conn.cursor()
 
-    def GetConn(self):
+    def getconn(self):
         return self.conn
         
     def createtable(self, tblname, fields):
@@ -53,9 +53,15 @@ class TransactionDB():
         self.cursor.execute("DELETE FROM {} WHERE txnid = {}".format(tblname,
                                                                      txnid))
 
-    def allrows(self, tblname, cols):
-        self.cursor.execute("SELECT * from {}".format(cols, tblname))
+    def allrows(self, tblname):
+        self.cursor.execute("SELECT * from `?`", tblname)
         return self.cursor.fetchall()
+
+    def exists(self, col, tbl):
+            self.cursor.execute("SELECT {} from {}".format(col, tbl))
+            if self.cursor.fetchall():
+                return True
+            return False
         
     def _printfetchall(self):
         for row in self.cursor.fetchall():
@@ -69,6 +75,6 @@ class TransactionDB():
                 break
         
 if __name__ == '__main__':
-    t = TransactionDB('test.db')
+    d = TransactionDB('test.db')
     
 

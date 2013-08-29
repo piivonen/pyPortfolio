@@ -1,0 +1,7 @@
+16:00:25 INFO Connecting to database.
+16:00:25 INFO Initializing tables and views
+16:00:25 DEBUG Creating table: tbl_types
+16:00:25 DEBUG Creating table: tbl_portfolios
+16:00:25 DEBUG Creating table: tbl_currencies
+16:00:25 DEBUG Creating table: tbl_transactions
+16:00:25 DEBUG Creating table: tbl_currentprices

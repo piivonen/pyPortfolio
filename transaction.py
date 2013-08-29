@@ -11,35 +11,49 @@ class Transaction():
                3:'dividend',
                4:'deposit',
                5:'withdrawal',
+               6:'margin interest',
+               7:'credit',
+               8: 'conversion',
+               
                99:'other'}
 
-    def __init__(self, txnid, symbol, shares, activity, pricepershare,
+    def __init__(self, txnid, symbol, curr, desc, shares, activity, pricepershare,
                  netamt=None, fees=0, datestamp=None):
         self.txnid = txnid
         self.symbol = symbol
+        self.curr = curr
+        self.desc = desc
         self.shares = shares
         self.pricepershare = pricepershare
         self.fees = fees
         self.tbltxn = 'transactions'
+        
 
         if type(activity) is not int:
             raise TypeError, 'Activity must be an integer.'
         self.activity = activity
-        self.description = Transaction.txntype[activity].upper()
+        self.activity_text = Transaction.txntype[activity].upper()
+        
         if datestamp is None:
             self.datestamp = datetime.now()
         elif type(datestamp) is datetime:
             self.datestamp = datestamp   
         else: 
             raise TypeError, "Datestamp is {}, not datetime.".format(str(type(datestamp)))         
-        if not netamt:
-            self.netamt = shares * pricepershare + fees
-        else:
+
+        if netamt:
             self.netamt = netamt
+        else:
+            self.netamt = shares * pricepershare + fees
             
     def __str__(self):
-        s = (str(self.datestamp)[:10] + ': ' + self.description + ' ' + str(self.shares) +
-             ' ' + self.symbol + ' @ ' + str(self.pricepershare))
+        if self.activity in (1,2):
+            s = (str(self.datestamp)[:10] + ': ' + self.activity_text + ' ' +
+                 str(self.shares) + ' ' + self.symbol + ' @ ' +
+                 str(self.pricepershare)) + ' [' + str(self.netamt) + ']'
+        else:
+            s = (str(self.datestamp)[:10] + ': ' + self.activity_text + ' ' +
+                 str(self.symbol) + ' [' + str(self.netamt) + ']')
         return s
 
     def __repr__(self):
@@ -48,30 +62,19 @@ class Transaction():
                                           self.netamt, self.fees, self.datestamp]]
         return 'Txn(' + ','.join(rep) + ')'
              
-    def _sqlify(self):
-        return [None, self.symbol, self.shares, self.activity, self.pricepershare,
-                self.netamt, self.fees, self.datestamp]
-        
-    def addtodb(self, dbname):
-        db = TransactionDB(dbname)
-        db.insertrow(self.tbltxn, self._sqlify())
-        
+    def attributes(self):
+        " Returns all attributes of the transaction, useful for sql inserts. "
+        return OrderedDict([('txnid', None), # not yet supported
+                           ('prtid', None),
+                ('currency',self.curr),
+                ('symbol',self.symbol),
+                ('desc',self.desc),
+                ('shares',self.shares),
+                ('activity',self.activity),
+                ('price',self.pricepershare),
+                ('netamt',self.netamt),
+                ('fees',self.fees),
+                ('date',self.datestamp)])
         
 if __name__ == '__main__':
-    t1 = Transaction(None, 'RY', 140, 2, Decimal('123.24'), 2000, 5, datetime.now())
-    """    
-    fields=OrderedDict([
-        ('txnid','integer primary key'),
-            ('symbol','text not null collate nocase'),
-            ('shares','decimal not null check(shares>0)'),
-            ('activity','integer not null check(activity>=0)'),
-            ('pricepershare','decimal not null check(activity>=0)'),
-            ('netamt','decimal'),
-            ('fees','decimal'), 
-            ('datestamp','timestamp')])
-    
-    view = ('net_transactions', '''SELECT symbol, case when activity=2 then -shares
-            else shares as net_shares end from transactions''')
-    openpositions = 'select symbol, sum(shares) from nettxn group by symbol having sum(shares)<>0'
-    """
     pass

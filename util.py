@@ -16,6 +16,6 @@ def convert_pformat(s):
     Returns string, convert elsewhere as needed to Decimal.
     '''
     if '(' in s:
-        return '-' + s.translate(None, "(),")
-    return s.translate(None, ",")
+        return '-' + s.translate(None, "$US(),")
+    return s.translate(None, "$US,")
         
