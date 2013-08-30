@@ -2,6 +2,7 @@ import portfolio
 import logging
 import csv_import
 import sys
+import os
 
 def init_logging():
     logging.basicConfig(
@@ -23,16 +24,15 @@ def init_logging():
 
 if __name__ == '__main__':
     init_logging()
+    dbname = 'portfolio.db'
     mp = portfolio.Portfolio('portfolio.db', 1)
     tp = portfolio.Portfolio('portfolio.db', 2)
     rp = portfolio.Portfolio('portfolio.db', 3)
-    margintxn = csv_import.import_qt_tradehistory('margin.csv')
-    tsfatxn = csv_import.import_qt_tradehistory('tsfa.csv')
-    rrsptxn = csv_import.import_qt_tradehistory('rrsp.csv')
+    csvdir = os.path.join(os.getcwd(), 'csv')
+    margintxn = csv_import.import_qt_tradehistory(os.path.join(csvdir,'margin.csv'))
+    tsfatxn = csv_import.import_qt_tradehistory(os.path.join(csvdir,'tsfa.csv'))
+    rrsptxn = csv_import.import_qt_tradehistory(os.path.join(csvdir,'rrsp.csv'))
     
-    marginact = csv_import.import_qt_activity('mactivity.csv')
-    tsfaact = csv_import.import_qt_activity('tactivity.csv')
-    rrspact = csv_import.import_qt_activity('ractivity.csv')
-    
-
-
+    marginact = csv_import.import_qt_activity(os.path.join(csvdir,'mactivity.csv'))
+    tsfaact = csv_import.import_qt_activity(os.path.join(csvdir,'tactivity.csv'))
+    rrspact = csv_import.import_qt_activity(os.path.join(csvdir,'ractivity.csv'))

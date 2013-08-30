@@ -1,0 +1,63 @@
+21:15:59 INFO Connecting to database.
+21:15:59 INFO Initializing tables and views
+21:15:59 DEBUG Creating table: tbl_types
+21:15:59 DEBUG Creating table: tbl_portfolios
+21:15:59 DEBUG Creating table: tbl_currencies
+21:15:59 DEBUG Creating table: tbl_transactions
+21:15:59 DEBUG Creating table: tbl_currentprices
+21:15:59 INFO Tables and views initialized. Adding default values.
+21:15:59 INFO Filling tables with default values
+21:15:59 INFO Connecting to database.
+21:15:59 INFO Initializing tables and views
+21:15:59 DEBUG Creating table: tbl_types
+21:15:59 DEBUG Creating table: tbl_portfolios
+21:15:59 DEBUG Creating table: tbl_currencies
+21:15:59 DEBUG Creating table: tbl_transactions
+21:15:59 DEBUG Creating table: tbl_currentprices
+21:15:59 INFO Tables and views initialized. Adding default values.
+21:15:59 INFO Filling tables with default values
+21:15:59 INFO Connecting to database.
+21:15:59 INFO Initializing tables and views
+21:15:59 DEBUG Creating table: tbl_types
+21:15:59 DEBUG Creating table: tbl_portfolios
+21:15:59 DEBUG Creating table: tbl_currencies
+21:15:59 DEBUG Creating table: tbl_transactions
+21:15:59 DEBUG Creating table: tbl_currentprices
+21:15:59 INFO Tables and views initialized. Adding default values.
+21:15:59 INFO Filling tables with default values
+21:16:01 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('GOOG', 855.43)
+21:16:02 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('VUG', 81.35)
+21:16:02 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('ARR', 4.19)
+21:16:03 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('JPM', 50.70)
+21:16:03 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('REI.UN.TO', 0.00)
+21:16:04 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('XBB.TO', 30.01)
+21:16:04 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('NLY', 11.66)
+21:16:05 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('TRL.TO', 0.82)
+21:16:05 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('AAPL', 491.70)
+21:16:06 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('SU', 34.30)
+21:16:06 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('VOT', 81.62)
+21:16:06 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('ONEQ', 142.5764)
+21:16:07 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('VNQI', 52.52)
+21:16:07 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('XEG.TO', 16.38)
+21:16:08 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('XIT.TO', 8.09)
+21:16:08 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('D.UN.TO', 0.00)
+21:16:09 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('XHY.TO', 21.04)
+21:16:10 DEBUG Updating price with: insert or replace into `tbl_currentprices` (symbol, price)
+        values ('RY.TO', 65.24)

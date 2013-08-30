@@ -94,9 +94,13 @@ class Portfolio():
          
     def _create_performance_view(self):
         ''' with joins on current price'''
-        self.cursor.execute('''create view if not exists `{perf}` as select {op}.symbol, p_id, c_id,
-        net_shares, price from  `{op}` left join `{price}` on {op}.symbol = {price}.symbol'''.format(
-            perf=self.tblperf, op=self.tblopen, price=self.tblprice))
+        self.cursor.execute('''create view if not exists `{perf}` as select name, currency, type, view_net.symbol,  sum(net_shares) as net_shares,
+        avg(pricepershare) as avgprice, -sum(netamt) as net_amount, sum(fees) as fees, price as current_price, net_shares * price as market_value,
+        avg(pricepershare)* net_shares + fees as book_value from `{net}` on on p_id=tbl_portfolios.id join tbl_currencies on c_id=tbl_currencies.id
+        join tbl_types on type_id=tbl_types.id left join tbl_currentprices on tbl_currentprices.symbol = view_net.symbol group by name, currency, type,
+        view_net.symbol '''.format(perf=self.tblperf, net=self.tblnet))
+
+      from view_net join tbl_portfolios ;
 #######################################
 #       Add defaults to tables        #
 #######################################
@@ -108,7 +112,7 @@ class Portfolio():
         self._add_default_currencies()
         
     def refresh_prices(self):
-        symbols = set([s[0] for s in self.open_positions()])
+        symbols = set([s[0] for s in self.all_positions()])
         for s in symbols:
             price = ystockquote.get_price(s)
             self._update_price(s, price)
@@ -150,6 +154,7 @@ class Portfolio():
     def _update_price(self, symbol, price):
         sql = '''insert or replace into `{}` ({}, {})
         values ('{}', {})'''.format(self.tblprice, 'symbol', 'price', symbol, price)
+        logging.debug('Updating price with: ' + sql)
         self.cursor.execute(sql)
         self.conn.commit()   
 
@@ -172,9 +177,8 @@ class Portfolio():
 #    Portfolio query methods           #
 ########################################
 
-    def open_positions(self):
-        self.cursor.execute('''select symbol, sum(net_shares) from "{}" group by symbol
-        having sum(net_shares)>0'''.format(self.tblnet))
+    def all_positions(self):
+        self.cursor.execute('select symbol from "{}" where activity in (0,1)'.format(self.tblnet))
         return self.cursor.fetchall()
 
             
