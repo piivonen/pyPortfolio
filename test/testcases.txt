@@ -1,0 +1,37 @@
+Test Cases for PyPortfolio
+--------------------------
+
+Summary: Finacial portfolio application. Imports transactions from csv files, aggregate transactions into one or more portfolios. Portfolio performance is calculated using current stock price data. Stock performance is captured at the ticker level and aggregated at the performance level. Differentiates between closed positions (performance calculated as dollars in vs. dollars out) and open positions (performance is market value vs. book value). 
+
+Supports a number of activity types in addition to buy/sell, such as splits, fees, dividends, etc. 
+
+Requirements
+------------
+
+1. Import transactions from a csv file
+2. Assign transactions to a portfolio
+3. Enter transactions manually
+4. Edit existing transactions
+5. Delete existing transactions
+6. Create a portfolio
+7. Edit a portfolio
+8. Delete a portfolio
+9. Always have one portfolio
+10. Group transactions by symbol
+11. Identify which symbols are closed vs. open
+12. Calculate performance at the symbol level (different calculations of open vs. closed)
+13. Calculate performance at the portfolio level
+14. Get current prices for all symbols
+15. Manually override price for a given symbol
+16. View a summary of all portfolios
+17. View a summary of all positions in a portfolio
+18. View all transactions
+19. View transactions by filter
+20. Group transactions (i.e. by type)
+21. Grab historical prices for all stocks
+22. Generate historical value of portfolios by range
+23. Export all transactions
+24. Deposit / withdraw cash
+25. Link / unlink transactions to cash
+26. RSS feeds featuring symbols
+
