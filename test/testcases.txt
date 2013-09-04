@@ -34,4 +34,3 @@ Requirements
 24. Deposit / withdraw cash
 25. Link / unlink transactions to cash
 26. RSS feeds featuring symbols
-
