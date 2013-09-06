@@ -1,0 +1,4 @@
+High-level Project Plan and Requirements Document
+
+MVC Design Pattern
+
